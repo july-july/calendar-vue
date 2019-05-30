@@ -18,7 +18,7 @@ const mutations = {
         state.dateCtx = state.dateCtx.clone().subtract(payload, 'month')
     },
     firstDay (state) {
-            state.firstDay = state.dateCtx.startOf('month');
+            state.firstDay= state.dateCtx.startOf('month');
     },
     lastDay (state) {
         state.lastDay = state.dateCtx.endOf('month');
