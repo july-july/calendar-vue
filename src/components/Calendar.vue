@@ -1,48 +1,42 @@
 <template>
     <div style="text-align: center">
         <p>{{monthNow}}</p>
-        <p>{{yearNow}}</p>
         <div class="item">
-            <span class="week" v-for="day in days"></span>
+            <span class="week" v-for="day in days">{{day}}</span>
             <p class="days" v-for="one in daysCount">{{one}}</p>
         </div>
 
-        <button @click="nextMonth">Назад</button>
-        <button>Вперед</button>
+        <button @click="prevMonth">Назад</button>
+        <button @click="nextMonth">Вперед</button>
 
     </div>
 </template>
 <script>
-    import moment  from 'moment'
+    // import moment  from 'moment'
+    import {mapGetters} from 'vuex'
+
     export default {
         name: 'Calendar',
-        data () {
+        data() {
             return {
                 days: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница",
-                    "Суббота", "Воскресенье"],
-                today:''
-            }
-        },
-        methods: {
-            moment() {
-                return moment().locale('ru');
-            },
-            nextMonth() {
-
-                    this.moment = this.moment(this.moment()).add(1, 'month');
-                console.log(this.moment)
+                    "Суббота", "Воскресенье"]
             }
         },
         computed: {
-            daysCount () {
-                return this.moment().daysInMonth()
+            ...mapGetters({
+                daysCount: 'getDaysCount',
+                monthNow: 'getMonthNow'
+            })
+        },
+        methods: {
+            nextMonth() {
+                this.$store.commit('nextDate', 1)
             },
-            monthNow () {
-                return this.moment().format('MMMM')
-            },
-            yearNow () {
-                return this.moment().format('YYYY')
+            prevMonth() {
+                this.$store.commit('prevDate', 1);
             }
+
         },
     }
 </script>
