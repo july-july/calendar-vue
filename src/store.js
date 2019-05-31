@@ -7,7 +7,13 @@ Vue.use(Vuex)
 const state = {
     dateCtx: moment().locale('ru'),
     firstDay: moment(),
-    lastDay: moment()
+    lastDay: moment(),
+    event: {
+        name: '',
+        date: '',
+        person: '',
+        description: ''
+    }
 }
 
 const mutations = {
@@ -18,10 +24,10 @@ const mutations = {
         state.dateCtx = state.dateCtx.clone().subtract(payload, 'month')
     },
     firstDay (state) {
-            state.firstDay= state.dateCtx.startOf('month');
+            state.firstDay= state.dateCtx.clone().startOf('month');
     },
     lastDay (state) {
-        state.lastDay = state.dateCtx.endOf('month');
+        state.lastDay = state.dateCtx.clone().endOf('month');
     }
 
 }

@@ -7,7 +7,7 @@
             <!--</div>-->
             <p class="days" v-for="square in monthBefore">{{square.format('D')}}</p>
             <p class="days" v-for="one in daysCount">{{one.format('D')}}</p>
-            <p class="days" v-for="last in 7-lastDay"></p>
+            <p class="days" v-for="last in monthAfter">{{last.format('D')}}</p>
         </div>
 
         <button @click="prevMonth">Назад</button>
@@ -40,34 +40,38 @@
         methods: {
             nextMonth() {
                 this.$store.commit('nextDate', 1)
-                this.blankSquares()
+                this.initFirstAndLastDay()
                 this.countBeforeDays()
+                this.countAfterDays()
 
             },
             prevMonth() {
                 this.$store.commit('prevDate', 1);
-                this.blankSquares()
+                this.initFirstAndLastDay()
                 this.countBeforeDays()
+                this.countAfterDays()
             },
-            blankSquares () {
-                this.$store.commit('firstDay', 1);
+            initFirstAndLastDay () {
+                this.$store.commit('firstDay');
+                this.$store.commit('lastDay');
             },
-//            countBeforeDays() {
-//                let firstDayBefore = this.$store.state.dateCtx;
-//                let monthBeforeCount = firstDayBefore.clone().subtract(1, 'month').startOf('month')
-//                let monthBeforeArray = [...Array(monthBeforeCount.daysInMonth())].map((_, i) => monthBeforeCount.clone().add(i, 'day'))
-//                this.monthBefore = monthBeforeArray.slice(monthBeforeArray.length - (this.firstDay-1),monthBeforeArray.length)
-//            },
-//            countAfterDays() {
-//                let lastDayAfter = this.$store.state.dateCtx;
-//                let monthAfterCount = lastDayAfter.clone().add(1, 'month').startOf('month')
-//                let monthAfterArray = [...Array(monthAfterCount.daysInMonth())].map((_, i) => monthAfterCount.clone().add(i, 'day'))
-//                this.monthAfter = monthAfterArray.slice(monthAfterArray.length - (this.lastDay-1),monthAfterArray.length)
-//            }
+            countBeforeDays() {
+                let firstDayBefore = this.$store.state.dateCtx;
+                let monthBeforeCount = firstDayBefore.clone().subtract(1, 'month').startOf('month')
+                let monthBeforeArray = [...Array(monthBeforeCount.daysInMonth())].map((_, i) => monthBeforeCount.clone().add(i, 'day'))
+                this.monthBefore = monthBeforeArray.slice(monthBeforeArray.length - (this.firstDay - 1), monthBeforeArray.length)
+            },
+            countAfterDays() {
+                let lastDayAfter = this.$store.state.dateCtx;
+                let monthAfterCount = lastDayAfter.clone().add(1, 'month').startOf('month')
+                let monthAfterArray = [...Array(monthAfterCount.daysInMonth())].map((_, i) => monthAfterCount.clone().add(i, 'day'))
+                this.monthAfter = monthAfterArray.slice(0, 7 - this.lastDay)
+            }
         },
         mounted () {
-//            this.countBeforeDays()
-//            this. countAfterDays()
+            this.initFirstAndLastDay()
+            this.countBeforeDays()
+            this.countAfterDays()
         }
 
     }
