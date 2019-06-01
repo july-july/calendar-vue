@@ -8,12 +8,32 @@ const state = {
     dateCtx: moment().locale('ru'),
     firstDay: moment(),
     lastDay: moment(),
-    event: {
-        name: '',
-        date: '',
-        person: '',
-        description: ''
-    }
+    event: [
+        {
+            name: 'alie',
+            date: '2019-06-01',
+            person: 'fdfdfdf',
+            description: 'dfdfdfd'
+        },
+        {
+            name: 'alie',
+            date: '2019-06-22',
+            person: 'fdfdfdf',
+            description: 'dfdfdfd'
+        },
+        {
+            name: 'alie',
+            date: '2019-08-22',
+            person: 'fdfdfdf',
+            description: 'dfdfdfd'
+        },
+        {
+            name: 'alie',
+            date: '2019-06-01',
+            person: 'fdfdfdf',
+            description: 'dfdfdfd'
+        }
+    ]
 }
 
 const mutations = {
@@ -24,10 +44,13 @@ const mutations = {
         state.dateCtx = state.dateCtx.clone().subtract(payload, 'month')
     },
     firstDay (state) {
-            state.firstDay= state.dateCtx.clone().startOf('month');
+        state.firstDay = state.dateCtx.clone().startOf('month');
     },
     lastDay (state) {
         state.lastDay = state.dateCtx.clone().endOf('month');
+    },
+    addEvent(state, payload) {
+        state.event.push(payload)
     }
 
 }
@@ -35,10 +58,14 @@ const mutations = {
 //getters отдает информацию из state, принимает параметры, при этом мы можем выбрать именно то свойство какое нужно
 
 const getters = {
-    getDaysCount: (state) => [...Array(state.firstDay.daysInMonth())].map((_, i) => state.firstDay.clone().add(i, 'day')),
+    getDaysCount: (state) => [...Array(state.dateCtx.daysInMonth())]
+        .map((_, i) =>
+            state.firstDay.clone().add(i, 'day')),
+
     getMonthNow: state => state.dateCtx.format('MMMM YYYY').toString(),
     getFirstDay: state => state.firstDay.isoWeekday(),
-    getLastDay: state => state.lastDay.isoWeekday()
+    getLastDay: state => state.lastDay.isoWeekday(),
+    getEvents: state => state.event
 }
 
 export default new Vuex.Store({

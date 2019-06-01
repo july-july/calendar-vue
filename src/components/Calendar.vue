@@ -2,11 +2,12 @@
     <div style="text-align: center">
         <p>{{monthNow}}</p>
         <div class="item">
-            <!--<div>-->
-            <!--<span v-for="day in days">{{day}}</span>-->
-            <!--</div>-->
+            <div>
+            </div>
             <p class="days" v-for="square in monthBefore">{{square.format('D')}}</p>
-            <p class="days" v-for="one in daysCount">{{one.format('D')}}</p>
+            <p class="days" v-for="(one, key) in daysCount">{{one.format('D')}}
+                <span v-for="eve in eventFilter(one.format('YYYY-MM-DD'))">{{ eve.name}}</span>
+            </p>
             <p class="days" v-for="last in monthAfter">{{last.format('D')}}</p>
         </div>
 
@@ -35,7 +36,9 @@
                 monthNow: 'getMonthNow',
                 firstDay: 'getFirstDay',
                 lastDay: 'getLastDay',
-            }),
+                events: 'getEvents'
+            })
+
         },
         methods: {
             nextMonth() {
@@ -66,12 +69,20 @@
                 let monthAfterCount = lastDayAfter.clone().add(1, 'month').startOf('month')
                 let monthAfterArray = [...Array(monthAfterCount.daysInMonth())].map((_, i) => monthAfterCount.clone().add(i, 'day'))
                 this.monthAfter = monthAfterArray.slice(0, 7 - this.lastDay)
+            },
+            eventFilter (i) {
+                return this.events.filter((el)=> {
+                    return el.date == i
+                })
             }
         },
         mounted () {
             this.initFirstAndLastDay()
             this.countBeforeDays()
             this.countAfterDays()
+        },
+        filters : {
+
         }
 
     }
