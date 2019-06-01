@@ -5,7 +5,7 @@
             <span class="current-date">{{monthNow}}</span>
             <div class="switch next" @click="nextMonth"></div>
 
-            <button class="btn btn-grey today-button">Сегодня</button>
+            <button class="btn btn-grey today-button" @click="">Сегодня</button>
         </div>
         <div class="calendar-items">
             <div class="item not-current-month" v-for="prev in monthBefore">
@@ -15,12 +15,16 @@
                     <span class="event-persons">{{ item.person}}</span>
                 </p>
             </div>
-            <div class="item" v-for="one in daysCount"
+            <div class="item" v-for="(one, key) in daysCount"
                  :class="{'blue-background' : eventFilter(one.format('YYYY-MM-DD')).length}">
+                <div class="subItem showInfo" :id="key" @click="showInfo(key)"></div>
                 <p class="day">{{one.format('D')}}</p>
                 <p v-for="item in eventFilter(one.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
                     <span class="event-persons">{{ item.person}}</span>
+                    <edit-info v-on:closeInfo="showInfo" v-if="item"
+                               :events="events"
+                               :index="key" :event="item"></edit-info>
                 </p>
             </div>
             <div class="item not-current-month" v-for="last in monthAfter">
@@ -36,6 +40,7 @@
 <script>
     // import moment  from 'moment'
     import {mapGetters} from 'vuex'
+    import EditInfo from './EditInfo.vue'
 
     export default {
         name: 'Calendar',
@@ -44,8 +49,11 @@
                 days: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница",
                     "Суббота", "Воскресенье"],
                 monthBefore: '',
-                monthAfter: ''
+                monthAfter: '',
             }
+        },
+        components: {
+            EditInfo
         },
         computed: {
             ...mapGetters({
@@ -91,6 +99,10 @@
                 return this.events.filter((el) => {
                     return el.date == i
                 })
+            },
+            showInfo(key) {
+                document.getElementById(key).classList.toggle('showInfo')
+                console.log('add')
             }
         },
         mounted () {
