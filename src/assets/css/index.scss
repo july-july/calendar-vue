@@ -1,20 +1,149 @@
-.week, .days {
-  width: 128px;
-  height: 128px;
-  border: 1px solid green;
-  flex-shrink: 0;
-  margin: 0;
+//Fonts
+@font-face {
+  font-family: "IBMPlexSans";
+  src: url('../../../public/fonts/Ibmplexsansmedium.woff');
 }
-.week {
-  position: absolute;
+
+@font-face {
+  font-family: "IBMPlexSans-Bold";
+  src: url('../../../public/fonts/Ibmplexsansbold.woff');
 }
-.days {
-  position: relative;
+
+body {
+  font-family: "IBMPlexSans";
+  font-size: 1em;
+  p {
+    margin: 0;
+  }
 }
+
+.calendar-container {
+  width: 992px;
+  height: 1000px;
+  outline: 1px solid #b0bec5;
+  margin: auto;
+  .calendar-header {
+    background: #f7f7f8;
+    max-height: 32px;
+    padding: 48px 48px 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .controls-container {
+      max-width: 50%;
+      flex: 0 1 50%;
+      display: flex;
+      .btn:first-child {
+        margin-right: 16px;
+      }
+    }
+  }
+  .calendar-body {
+    padding: 24px 48px 48px 48px;
+    .date-switch {
+      padding-bottom: 32px;
+      display: flex;
+      align-items: center;
+      .today-button {
+        width: 96px;
+        height: 24px;
+        padding: 0 6px;
+        margin-left: 8px;
+      }
+
+      .current-date {
+        display: block;
+        width: 136px;
+        height: 24px;
+        font-family: "IBMPlexSans-Bold";
+        color: #607d8b;
+        text-align: center;
+        text-transform: capitalize;
+        margin: 0 8px;
+      }
+      .switch {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        &:after {
+          content: '';
+          border: 6px solid transparent;
+          display: block;
+          margin: 0 auto;
+          position: absolute;
+        }
+        &.prev:after {
+          border-right: 9px solid #607d8b;
+          top: 6px;
+        }
+        &.next:after {
+          border-left: 9px solid #607d8b;
+          top: 6px;
+          left: 8px;
+        }
+      }
+    }
+    .calendar-items {
+      border: 1px solid #b0bec5;
+      display: grid;
+      grid-template-columns: repeat(7, 127px);
+      grid-template-rows: repeat(6, 127px);
+      grid-gap: 1px;
+    }
+  }
+}
+
+//Calendar square
 .item {
-  display: flex;
-  flex-wrap: wrap;
-  width: 910px;
-  margin: 0 auto;
-  position: relative;
+  grid-column: span 1;
+  border-right: inherit;
+  border-bottom: inherit;
+  border-bottom: inherit;
+  margin-bottom: -1px;
+  padding: 9px 8px;
+  color: #607d8b;
+  font-size: .75em;
+  cursor: pointer;
+
+  &:hover {
+    outline: 2px solid #008393;
+  }
+  .day {
+    margin: 0 0 9px 0;
+  }
+  span {
+    display: block;
+  }
+  .event-name {
+    font-family: IBMPlexSans-Bold;
+    margin: 0 0 8px 0;
+  }
+
+  &.not-current-month {
+    color: #b0bec5;
+    pointer-events: none;
+    &:hover {
+      outline: none;
+    }
+  }
+}
+
+//General styles
+.btn {
+  width: 128px;
+  padding: 6px 8px;
+  background: #2196f3;
+  border: none;
+  color: #FFF;
+  height: 32px;
+
+  &.btn-grey {
+    background: #f7f7f8;
+    color: #607d8b;
+  }
+}
+
+.blue-background {
+  background-color: #c3eaef;
 }

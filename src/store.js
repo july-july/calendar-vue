@@ -10,28 +10,28 @@ const state = {
     lastDay: moment(),
     event: [
         {
-            name: 'alie',
+            name: 'Поездка в Москву',
             date: '2019-06-01',
-            person: 'fdfdfdf',
-            description: 'dfdfdfd'
+            person: 'я',
+            description: 'описние'
         },
         {
-            name: 'alie',
-            date: '2019-06-22',
-            person: 'fdfdfdf',
-            description: 'dfdfdfd'
+            name: 'Поездка в Москву',
+            date: '2019-05-31',
+            person: 'я',
+            description: 'описние'
         },
         {
-            name: 'alie',
-            date: '2019-08-22',
-            person: 'fdfdfdf',
-            description: 'dfdfdfd'
+            name: 'Поездка в Москву',
+            date: '2019-09-01',
+            person: 'я',
+            description: 'описние'
         },
         {
-            name: 'alie',
-            date: '2019-06-01',
-            person: 'fdfdfdf',
-            description: 'dfdfdfd'
+            name: 'Поездка в Москва',
+            date: '2019-08-01',
+            person: 'я',
+            description: 'описние'
         }
     ]
 }

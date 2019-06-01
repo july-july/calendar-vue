@@ -1,19 +1,36 @@
 <template>
-    <div style="text-align: center">
-        <p>{{monthNow}}</p>
-        <div class="item">
-            <div>
-            </div>
-            <p class="days" v-for="square in monthBefore">{{square.format('D')}}</p>
-            <p class="days" v-for="(one, key) in daysCount">{{one.format('D')}}
-                <span v-for="eve in eventFilter(one.format('YYYY-MM-DD'))">{{ eve.name}}</span>
-            </p>
-            <p class="days" v-for="last in monthAfter">{{last.format('D')}}</p>
+    <div class="calendar-body-inner">
+        <div class="date-switch">
+            <div class="switch prev" @click="prevMonth"></div>
+            <span class="current-date">{{monthNow}}</span>
+            <div class="switch next" @click="nextMonth"></div>
+
+            <button class="btn btn-grey today-button">Сегодня</button>
         </div>
-
-        <button @click="prevMonth">Назад</button>
-        <button @click="nextMonth">Вперед</button>
-
+        <div class="calendar-items">
+            <div class="item not-current-month" v-for="prev in monthBefore">
+                <p class="day">{{prev.format('D')}}</p>
+                <p v-for="item in eventFilter(prev.format('YYYY-MM-DD'))">
+                    <span class="event-name">{{ item.name}}</span>
+                    <span class="event-persons">{{ item.person}}</span>
+                </p>
+            </div>
+            <div class="item" v-for="one in daysCount"
+                 :class="{'blue-background' : eventFilter(one.format('YYYY-MM-DD')).length}">
+                <p class="day">{{one.format('D')}}</p>
+                <p v-for="item in eventFilter(one.format('YYYY-MM-DD'))">
+                    <span class="event-name">{{ item.name}}</span>
+                    <span class="event-persons">{{ item.person}}</span>
+                </p>
+            </div>
+            <div class="item not-current-month" v-for="last in monthAfter">
+                <p class="day">{{last.format('D')}}</p>
+                <p v-for="item in eventFilter(last.format('YYYY-MM-DD'))">
+                    <span class="event-name">{{ item.name}}</span>
+                    <span class="event-persons">{{ item.person}}</span>
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -71,7 +88,7 @@
                 this.monthAfter = monthAfterArray.slice(0, 7 - this.lastDay)
             },
             eventFilter (i) {
-                return this.events.filter((el)=> {
+                return this.events.filter((el) => {
                     return el.date == i
                 })
             }
@@ -81,9 +98,5 @@
             this.countBeforeDays()
             this.countAfterDays()
         },
-        filters : {
-
-        }
-
     }
 </script>

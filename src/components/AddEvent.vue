@@ -1,11 +1,11 @@
 <template>
     <div style="text-align: center">
-       <p> <input type="text" v-model="event.name"></p>
-       <p><input type="date"  v-model="event.date"></p>
-        <p><input type="text"  v-model="event.person"></p>
-        <p> <textarea v-model="event.description" name="" id="" cols="30" rows="10"></textarea></p>
-        <button @click="addEvent">Добавить</button>
-
+       <!--<p> <input type="text" v-model="event.name"></p>-->
+       <!--<p><input type="date"  v-model="event.date"></p>-->
+        <!--<p><input type="text"  v-model="event.person"></p>-->
+        <!--<p> <textarea v-model="event.description" name="" id="" cols="30" rows="10"></textarea></p>-->
+        <!--<button @click="addEvent">Добавить</button>-->
+        <button class="btn">Добавить</button>
     </div>
 </template>
 <script>
