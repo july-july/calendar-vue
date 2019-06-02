@@ -51,6 +51,9 @@ const mutations = {
     },
     addEvent(state, payload) {
         state.event.push(payload)
+    },
+    today(state, payload) {
+        state.dateCtx = payload
     }
 
 }

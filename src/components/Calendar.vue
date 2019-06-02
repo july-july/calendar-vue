@@ -5,7 +5,7 @@
             <span class="current-date">{{monthNow}}</span>
             <div class="switch next" @click="nextMonth"></div>
 
-            <button class="btn btn-grey today-button" @click="">Сегодня</button>
+            <button class="btn btn-grey today-button" @click="todayDate">Сегодня</button>
         </div>
         <div class="calendar-items">
             <div class="item not-current-month" v-for="prev in monthBefore">
@@ -17,7 +17,7 @@
             </div>
             <div class="item" v-for="(one, key) in daysCount"
                  :class="{'blue-background' : eventFilter(one.format('YYYY-MM-DD')).length}">
-                <div class="subItem showInfo" :id="key" @click="showInfo(key)"></div>
+                <div class="subItem" :id="key" @click="showInfo(key)"></div>
                 <p class="day">{{one.format('D')}}</p>
                 <p v-for="item in eventFilter(one.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
@@ -41,6 +41,7 @@
     // import moment  from 'moment'
     import {mapGetters} from 'vuex'
     import EditInfo from './EditInfo.vue'
+    import moment from 'moment'
 
     export default {
         name: 'Calendar',
@@ -50,6 +51,8 @@
                     "Суббота", "Воскресенье"],
                 monthBefore: '',
                 monthAfter: '',
+                today: ''
+
             }
         },
         components: {
@@ -103,6 +106,13 @@
             showInfo(key) {
                 document.getElementById(key).classList.toggle('showInfo')
                 console.log('add')
+            },
+            todayDate () {
+                let today =  moment().clone().locale('ru')
+                this.$store.commit('today', today)
+                this.initFirstAndLastDay()
+                this.countBeforeDays()
+                this.countAfterDays()
             }
         },
         mounted () {

@@ -6,7 +6,7 @@
             <input type="text" v-model="editedEvent.name" placeholder="Событие">
             <input type="text" v-model="editedEvent.person" placeholder="Имена участников">
             <textarea v-model="editedEvent.description" placeholder="Описание" cols="30" rows="10"></textarea>
-            <button class="btn btn-grey" :class="{disabled : !editedEvent.name}" @click="editEvent">Изменить</button>
+            <button class="btn btn-grey" :class="{disabled : !editedEvent.name}" @click="editEvent(index)">Изменить</button>
         </div>
         <div v-else>
             <p class="info-date">{{changeFormatMouth(event.date)}}</p>
@@ -45,17 +45,15 @@
                 this.$emit('closeInfo', key)
                 this.isEditing = false
             },
-            editEvent () {
+            editEvent (i) {
                 this.event.name = this.editedEvent.name
                 this.event.person = this.editedEvent.person
                 this.event.description = this.editedEvent.description
-                this.closeInfo()
+                this.closeInfo(i)
             },
             removeEvent (el) {
                 let index = this.events.indexOf(el)
-                console.log(index)
                 this.events.splice(index, 1);
-                console.log('deleted', this.events)
             }
         }
     }
