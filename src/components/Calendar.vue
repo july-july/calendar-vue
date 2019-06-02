@@ -9,22 +9,24 @@
         </div>
         <div class="calendar-items">
             <div class="item not-current-month" v-for="prev in monthBefore">
-                <p class="day">{{prev.format('D')}}</p>
+                <p class="day">{{prev.format('D, dd')}}</p>
                 <p v-for="item in eventFilter(prev.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
                     <span class="event-persons">{{ item.person}}</span>
                 </p>
             </div>
+
             <div class="item" v-for="(one, key) in daysCount"
                  :class="{'blue-background' : eventFilter(one.format('YYYY-MM-DD')).length}">
-
 
                 <div class="subItem" v-if="eventFilter(one.format('YYYY-MM-DD')).length" :id="key"
                      @click="showInfo(key)"></div>
 
                 <div class="subItem " v-else :id="key" @click="showInfo(key)"></div>
+
                 <add-event-popup v-on:closeInfo="showInfo" :index="key" :day="one"></add-event-popup>
-                <p class="day">{{one.format('D')}}</p>
+                <p class="day">{{one.format('D, dd')}}</p>
+
                 <p v-for="item in eventFilter(one.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
                     <span class="event-persons">{{ item.person}}</span>
@@ -33,8 +35,10 @@
                                :index="key" :event="item"></edit-info>
                 </p>
             </div>
+
+
             <div class="item not-current-month" v-for="last in monthAfter">
-                <p class="day">{{last.format('D')}}</p>
+                <p class="day">{{last.format('D, dd')}}</p>
                 <p v-for="item in eventFilter(last.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
                     <span class="event-persons">{{ item.person}}</span>
@@ -44,7 +48,6 @@
     </div>
 </template>
 <script>
-    // import moment  from 'moment'
     import {mapGetters} from 'vuex'
     import EditInfo from './EditInfo.vue'
     import AddEventPopup from './AddEventPopup.vue'
@@ -101,16 +104,18 @@
                 let lastDayAfter = this.$store.state.dateCtx;
                 let monthAfterCount = lastDayAfter.clone().add(1, 'month').startOf('month')
                 let monthAfterArray = [...Array(monthAfterCount.daysInMonth())].map((_, i) => monthAfterCount.clone().add(i, 'day'))
-                this.monthAfter = monthAfterArray.slice(0, 7 - this.lastDay)
+                this.monthAfter = monthAfterArray.slice(0, 42 - lastDayAfter.daysInMonth() - (this.firstDay - 1) )
+
             },
             eventFilter (i) {
                 return this.events.filter((el) => {
-                    return el.date == i
+                    return el.date === i
+
                 })
+
             },
             showInfo(key) {
-                document.getElementById(key).classList.toggle('showInfo')
-                console.log('add')
+               document.getElementById(key).classList.toggle('showInfo')
             },
             todayDate () {
                 let today = moment().clone().locale('ru')
@@ -118,10 +123,8 @@
                 this.initFirstAndLastDay()
                 this.countBeforeDays()
                 this.countAfterDays()
-            },
-            addNewEvent() {
 
-            }
+            },
         },
         mounted () {
             this.initFirstAndLastDay()

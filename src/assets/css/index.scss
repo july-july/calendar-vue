@@ -107,12 +107,9 @@ body {
   font-size: .75em;
   cursor: pointer;
   position: relative;
-
-  &:hover {
-    outline: 2px solid #008393;
-  }
   .day {
     margin: 0 0 9px 0;
+    text-transform: capitalize;
   }
   span {
     display: block;
@@ -144,6 +141,10 @@ body {
     background: #f7f7f8;
     color: #607d8b;
   }
+}
+
+textarea {
+  font-family: 'IBMPlexSans';
 }
 
 .blue-background {
@@ -216,7 +217,7 @@ body {
   padding: 30px 32px 16px;
   width: 264px;
   height: 306px;
-  box-shadow:-4px 0px 12px 1px #0000008f;
+  box-shadow: -4px 0px 12px 1px #0000008f;
   top: 0;
   left: 140px;
   &:before {
@@ -228,7 +229,7 @@ body {
     top: 24px;
     left: -28px;
   }
-  .info-date,.info-person {
+  .info-date, .info-person {
     font-family: IBMPlexSans-Bold;
     margin-bottom: 14px;
   }
@@ -257,13 +258,83 @@ body {
     }
   }
 }
+
 .subItem {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
-  right:0;
+  right: 0;
   bottom: 0;
   &.showInfo + .info-event {
     display: block;
   }
+
+  &:hover {
+    outline: 2px solid #008393;
+  }
+
+}
+
+.today {
+  outline: 2px solid #008393;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-result {
+  position: absolute;
+  width: 250px;
+  height: 450px;
+  padding: 8px;
+  background: white;
+  display: block;
+  top: 42px;
+  left: -27px;
+
+  .search-item {
+    height: 32px;
+    padding: 9px 16px 5px 8px;
+    font-size: .75em;
+    color: #607d8b;
+    span {
+      display: block;
+    }
+    .title {
+      margin-bottom: 4px;
+      font-family: IBMPlexSans-Bold;
+
+    }
+    .date {
+      font-family: IBMPlexSans;
+    }
+    &:hover {
+      background-color: #00bcd4;
+      color: #fff;
+    }
+  }
+}
+
+.overflow-auto {
+  overflow-y: auto;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    width: 0.2em;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #607d8b;
+    outline: 1px solid #607d8b;
+  }
+}
+
+.loop {
+  margin-right: 13px;
+  font-size: 1em;
 }

@@ -7,7 +7,7 @@
           <update-calendar></update-calendar>
         </div>
        <div class="search-container">
-
+        <search-component></search-component>
        </div>
       </div>
       <div class="calendar-body">
@@ -21,9 +21,10 @@
   import Calendar from './components/Calendar.vue'
   import AddEvent from './components/AddEvent.vue'
   import UpdateCalendar from './components/UpdateCalendar.vue'
+  import SearchComponent from './components/SearchEvent.vue'
   export default {
       components: {
-          Calendar, AddEvent,UpdateCalendar
+          Calendar, AddEvent,UpdateCalendar, SearchComponent
       }
   }
 

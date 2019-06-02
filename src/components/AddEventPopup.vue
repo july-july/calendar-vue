@@ -19,7 +19,7 @@
             return {
                 event : {
                     name: '',
-                    date: this.day.format('YYYY-MM-DD'),
+                    date: '',
                     person: '',
                     description : ''
                 }
@@ -28,8 +28,14 @@
         props: ['day', 'index'],
         methods: {
             addNewEvent (i) {
-                this.$store.commit('addEvent', this.event)
-                console.log(this.event, 'new event')
+                //Я знаю, что это похоже(если не есть) костыль. Но MomentJS не оставил мне выбора :(
+                let newEvent = {
+                    name: this.event.name,
+                    date: this.day.format('YYYY-MM-DD'),
+                    person: this.event.person,
+                    description : this.event.description
+                }
+                this.$store.commit('addEvent', newEvent)
                 this.closeInfo(i)
             },
             closeInfo(i) {
@@ -39,7 +45,7 @@
                 this.closeInfo(i)
                 this.event = {
                     name: '',
-                    date: this.day.format('YYYY-MM-DD'),
+                    date: '',
                     person: '',
                     description: ''
                 }

@@ -8,7 +8,8 @@
             <input type="date" v-model="event.date" placeholder="День, месяц, год">
             <input type="text" v-model="event.person" placeholder="Имена участников">
             <textarea v-model="event.description" placeholder="Описание" cols="30" rows="10"></textarea>
-            <button class="btn btn-grey" :class="{disabled : !event.name && !event.date}" @click="addEvent">Добавить</button>
+            <button class="btn btn-grey" :class="{disabled : !event.name && !event.date}" @click="addEvent">Добавить
+            </button>
         </div>
 
 
@@ -25,7 +26,7 @@
                     person: '',
                     description: ''
                 },
-                isAdding: false
+                isAdding: false,
             }
         },
         methods: {
@@ -38,7 +39,7 @@
                     person: '',
                     description: ''
                 }
-            }
-        }
+            },
+        },
     }
 </script>

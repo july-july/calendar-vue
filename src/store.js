@@ -13,25 +13,38 @@ const state = {
             name: 'Поездка в Москву',
             date: '2019-06-12',
             person: 'я',
-            description: 'смслдлд  зщпкповджа  кеквдевжд зплпэжвадплажд лдлпжвадл ждлэж плапжал ждалпаж плвжплвжд лпжвалждвлп яжлрэжрлаэж леэж'
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
         },
         {
-            name: 'Поездка в Москву',
-            date: '2019-05-31',
+            name: 'Поездка в Питер',
+            date: '2019-06-14',
             person: 'я',
-            description: 'описние'
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        },
+        {
+            name: 'Встреча с друзьями',
+            date: '2019-06-18',
+            person: 'я, друзья',
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        },
+
+        {
+            name: 'Генеральная уборка',
+            date: '2019-07-01',
+            person: 'я',
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
         },
         {
             name: 'Поездка в Москву',
             date: '2019-09-01',
             person: 'я',
-            description: 'описние'
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
         },
         {
             name: 'Поездка в Москва',
             date: '2019-08-01',
             person: 'я',
-            description: 'описние'
+            description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
         }
     ]
 }
@@ -57,9 +70,6 @@ const mutations = {
     }
 
 }
-
-//getters отдает информацию из state, принимает параметры, при этом мы можем выбрать именно то свойство какое нужно
-
 const getters = {
     getDaysCount: (state) => [...Array(state.dateCtx.daysInMonth())]
         .map((_, i) =>
