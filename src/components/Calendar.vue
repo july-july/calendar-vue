@@ -17,12 +17,18 @@
             </div>
             <div class="item" v-for="(one, key) in daysCount"
                  :class="{'blue-background' : eventFilter(one.format('YYYY-MM-DD')).length}">
-                <div class="subItem" :id="key" @click="showInfo(key)"></div>
+
+
+                <div class="subItem" v-if="eventFilter(one.format('YYYY-MM-DD')).length" :id="key"
+                     @click="showInfo(key)"></div>
+
+                <div class="subItem " v-else :id="key" @click="showInfo(key)"></div>
+                <add-event-popup v-on:closeInfo="showInfo" :index="key" :day="one"></add-event-popup>
                 <p class="day">{{one.format('D')}}</p>
                 <p v-for="item in eventFilter(one.format('YYYY-MM-DD'))">
                     <span class="event-name">{{ item.name}}</span>
                     <span class="event-persons">{{ item.person}}</span>
-                    <edit-info v-on:closeInfo="showInfo" v-if="item"
+                    <edit-info v-on:closeInfo="showInfo"
                                :events="events"
                                :index="key" :event="item"></edit-info>
                 </p>
@@ -41,6 +47,7 @@
     // import moment  from 'moment'
     import {mapGetters} from 'vuex'
     import EditInfo from './EditInfo.vue'
+    import AddEventPopup from './AddEventPopup.vue'
     import moment from 'moment'
 
     export default {
@@ -51,12 +58,10 @@
                     "Суббота", "Воскресенье"],
                 monthBefore: '',
                 monthAfter: '',
-                today: ''
-
             }
         },
         components: {
-            EditInfo
+            EditInfo, AddEventPopup
         },
         computed: {
             ...mapGetters({
@@ -108,11 +113,14 @@
                 console.log('add')
             },
             todayDate () {
-                let today =  moment().clone().locale('ru')
+                let today = moment().clone().locale('ru')
                 this.$store.commit('today', today)
                 this.initFirstAndLastDay()
                 this.countBeforeDays()
                 this.countAfterDays()
+            },
+            addNewEvent() {
+
             }
         },
         mounted () {
